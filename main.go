@@ -89,6 +89,9 @@ func main() {
 		log.Fatal("cannot calculate absolute directory for output:", err)
 	}
 	err = filepath.Walk(templateDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
 		if filepath.Ext(path) != ".tpl" || (filepath.Ext(path) == ".tpl" && info.IsDir()) {
 			return nil
 		}
