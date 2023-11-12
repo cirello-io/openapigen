@@ -54,15 +54,15 @@ func main() {
 	if err != nil {
 		log.Fatal("cannot open swagger json file:", err)
 	}
-	log.Println("Decoding spec file with https://godoc.org/github.com/getkin/kin-openapi/openapi2#Swagger")
-	var swagger *openapi3.Swagger
+	var swagger *openapi3.T
 	if *isOpenAPIV2 {
-		var swaggerV2 openapi2.Swagger
+		log.Println("Decoding spec file with https://godoc.org/github.com/getkin/kin-openapi/openapi2#T")
+		var swaggerV2 openapi2.T
 		err := json.NewDecoder(fd).Decode(&swaggerV2)
 		if err != nil {
 			log.Fatal("cannot parse swaggerV2 json file:", err)
 		}
-		swagger, err = openapi2conv.ToV3Swagger(&swaggerV2)
+		swagger, err = openapi2conv.ToV3(&swaggerV2)
 		if err != nil {
 			log.Fatal("cannot convert from v2 to v3:", err)
 		}
