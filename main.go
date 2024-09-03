@@ -25,6 +25,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"maps"
 	"os"
 	"path/filepath"
 	"sort"
@@ -133,7 +134,9 @@ func main() {
 			},
 			"uniquePathTags": func() []string {
 				var tags []string
-				for _, pathItem := range swagger.Paths {
+				paths := maps.Keys(swagger.Paths.Extensions)
+				for pi := range paths {
+					pathItem := swagger.Paths.Value(pi)
 					if pathItem.Connect != nil {
 						tags = append(tags, pathItem.Connect.Tags...)
 					}
